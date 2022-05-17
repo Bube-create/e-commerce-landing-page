@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import CartContent from "./CartContent";
-import { CartContext } from "./Context/CartContext";
+import { CartContext } from "./CartContext";
 const Header = () => {
 	const [navToggle, setNavToggle] = useState(false);
 	const [showCart, setShowCart] = useState(false);
