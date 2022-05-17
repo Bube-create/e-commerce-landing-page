@@ -4,7 +4,6 @@ import styled from "styled-components";
 function reducer(state, action) {
 	switch (action.type) {
 		case "next":
-			console.log(state);
 			if (state < 4) {
 				return state + 1;
 			} else {
