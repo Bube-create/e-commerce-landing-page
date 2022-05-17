@@ -1,0 +1,169 @@
+import React, { useEffect, useReducer, useState } from "react";
+import styled from "styled-components";
+
+function reducer(state, action) {
+	switch (action.type) {
+		case "next":
+			console.log(state);
+			if (state < 4) {
+				return state + 1;
+			} else {
+				return 1;
+			}
+
+		case "prev":
+			if (state > 1) {
+				return state - 1;
+			} else {
+				return 4;
+			}
+		case "minigallery":
+			// imageRef.current = action.payload;
+			// action.payload.element.target.classList = "active";
+			return parseInt(action.payload.index);
+		default:
+			throw Error("Invalid Input");
+	}
+}
+
+const initActive = {
+	1: false,
+	2: false,
+	3: false,
+	4: false,
+};
+const Gallery = ({ setModalBtn }) => {
+	const [carouserNum, dispatch] = useReducer(reducer, 1);
+	const [active, setActive] = useState(initActive);
+
+	useEffect(() => {
+		setActive({ ...active, 1: true });
+	}, []);
+	return (
+		<GallerySection>
+			<img
+				src={`./images/image-product-${carouserNum}.jpg`}
+				alt="product"
+				className="product"
+				onClick={() => setModalBtn(true)}
+			/>
+			<div
+				onClick={() => dispatch({ type: "prev" })}
+				className="carousel-btn prev"
+			>
+				{" "}
+				<img src="./images/icon-previous.svg" alt="" />
+			</div>
+			<div
+				onClick={() => dispatch({ type: "next" })}
+				className="carousel-btn next"
+			>
+				{" "}
+				<img src="./images/icon-next.svg" alt="" />
+			</div>
+
+			<MiniGallery
+				onClick={(e) => {
+					const index = e.target.dataset.index;
+					const act = { ...initActive };
+					act[index] = true;
+					setActive(act);
+					return dispatch({
+						type: "minigallery",
+						payload: {
+							index: e.target.dataset.index,
+							element: e,
+						},
+					});
+				}}
+			>
+				<img
+					src="./images/image-product-1-thumbnail.jpg"
+					alt=""
+					data-index="1"
+					className={active[1] ? "active" : null}
+				/>
+				<img
+					src="./images/image-product-2-thumbnail.jpg"
+					alt=""
+					data-index="2"
+					className={active[2] ? "active" : null}
+				/>
+
+				<img
+					src="./images/image-product-3-thumbnail.jpg"
+					alt=""
+					data-index="3"
+					className={active[3] ? "active" : null}
+				/>
+				<img
+					src="./images/image-product-4-thumbnail.jpg"
+					alt=""
+					data-index="4"
+					className={active[4] ? "active" : null}
+				/>
+			</MiniGallery>
+		</GallerySection>
+	);
+};
+
+export default Gallery;
+
+const GallerySection = styled.section`
+	// padding: 32px;
+	position: relative;
+	// border: solid;
+	max-width: max-content;
+	.product {
+		width: 100%;
+
+		@media (min-width: 950px) {
+			width: 500px;
+			border-radius: 16px;
+		}
+	}
+	.carousel-btn {
+		width: 40px;
+		height: 40px;
+		background-color: white;
+		border-radius: 50%;
+		position: absolute;
+		top: 50%;
+		cursor: pointer;
+		display: grid;
+		place-content: center;
+
+		@media (min-width: 950px) {
+			display: none;
+		}
+	}
+
+	.carousel-btn.prev {
+		transform: translate(15%, -50%);
+		left: 0;
+	}
+	.carousel-btn.next {
+		transform: translate(-15%, -50%);
+
+		right: 0;
+	}
+`;
+
+const MiniGallery = styled.div`
+	display: none;
+	@media (min-width: 950px) {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 16px;
+		img {
+			width: 100px;
+			border-radius: 8px;
+			cursor: pointer;
+		}
+
+		img.active {
+			opacity: 0.5;
+			border: 3px solid hsl(26, 100%, 55%);
+		}
+	}
+`;
