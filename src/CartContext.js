@@ -6,9 +6,9 @@ export const CartDispatch = createContext(null);
 function cartReducer(state, action) {
 	switch (action.type) {
 		case "addToGlobal":
-			return { qnt: action.qnt };
+			return { ...state, qnt: action.qnt };
 		case "delete":
-			return { qnt: 0 };
+			return { ...state, qnt: 0 };
 		default:
 			throw new Error("Invalid action type");
 	}
