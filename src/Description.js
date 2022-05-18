@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React from "react";
-import CartControl from "./CartControl.js";
+import CartControl from "./CartControl";
 
 const Description = () => {
 	return (
