@@ -1,6 +1,6 @@
 import React, { useContext, useReducer } from "react";
 import styled from "styled-components";
-import { CartDispatch } from "./CartContext";
+import { CartDispatch } from "./CartContext.js";
 
 function reduce(state, action) {
 	switch (action.type) {
