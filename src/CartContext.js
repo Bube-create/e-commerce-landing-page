@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react";
 
 export const CartContext = createContext(0);
-export const CartDispatch = createContext(null);
+export const CartDispatch = createContext();
 
 function cartReducer(state, action) {
 	switch (action.type) {
