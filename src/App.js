@@ -5,7 +5,7 @@ import Main from "./Main";
 // import HeaderDesktop from "./HeaderDesktop";
 import Header from "./Header";
 import Description from "./Description";
-import { CartProvider } from "./CartContext";
+import { CartProvider } from "./CartContext.js";
 import GalleryModal from "./GalleryModal";
 import { useState } from "react";
 
